@@ -20,10 +20,23 @@ do
   curl -u $GITHUB_UN:$GITHUB_PW https://api.github.com/orgs/jenkinsci/repos?page=$i | grep clone_url  | sed 's/    "clone_url": "\(.*\)",/\1/g' >> repourls.txt
 done
 
-rm -rf repos
-
-# clone all the repos listed in the repo url list file
+# clone/update all the repos listed in the repo url list file
 mkdir repos
 pushd repos
-cat ../repourls.txt | while read giturl; do git clone "$giturl"; done
+
+while read giturl; do
+  repoName=$(echo "$giturl" | sed 's/https\:\/\/github\.com\/jenkinsci\/\(.*\)\.git/\1/')
+
+  if [[ -d $repoName ]]; then
+  	echo "'$repoName' exists ... updating"
+  	cd $repoName
+  	git pull origin master
+  	cd ..
+  else
+  	echo "'$repoName' doesn't exist ... cloning"
+  	git clone $giturl
+  fi
+
+done < repourls.txt
+
 popd
