@@ -5,20 +5,22 @@
 # export GITHUB_UN=<username>
 # export GITHUB_PW=<password>
 
-# Use curl -i https://api.github.com/orgs/jenkinsci/repos?page=XXX
-# to test for how many pages can be returned from the API.
-# After working that out, update the following variable.
-NUM_REPO_PAGES=42
-
 # delete the repo url list file
 rm repourls.txt
 
 # recreate the repo url list file
-for i in `seq 1 $NUM_REPO_PAGES`;
+for i in `seq 1 1000`;
 do
-  echo "Getting page $i"
-  curl -u $GITHUB_UN:$GITHUB_PW https://api.github.com/orgs/jenkinsci/repos?page=$i | grep clone_url  | sed 's/    "clone_url": "\(.*\)",/\1/g' >> repourls.txt
-done
+	gitpage=$(curl -u $GITHUB_UN:$GITHUB_PW https://api.github.com/orgs/jenkinsci/repos?page=$i)
+	repourls=$(echo "$gitpage" | grep clone_url  | sed 's/    "clone_url": "\(.*\)",/\1/g')
+
+	echo "$repourls" >> repourls.txt
+
+	if [ "$repourls" == "" ]; then
+		echo "No results for page $i.  We're done!"
+		break
+	fi
+done	
 
 # clone/update all the repos listed in the repo url list file
 mkdir repos
