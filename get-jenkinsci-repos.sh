@@ -39,6 +39,6 @@ while read giturl; do
   	git clone $giturl
   fi
 
-done < repourls.txt
+done < ../repourls.txt
 
 popd
