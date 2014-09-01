@@ -8,7 +8,8 @@ fi
 pushd $CATALINA_HOME/bin
 
 # Try stopping catalina properly first
-./catalina.sh stop
+echo "Stopping Catalina"
+./catalina.sh stop > /dev/null
 
 # Give the process a few seconds to  stop
 sleep 5
@@ -24,6 +25,9 @@ do
 done
 
 # Restart catalina
-./catalina.sh start
+echo "Starting Catalina"
+./catalina.sh start > /dev/null
+
+echo "Catalina restarted: $(date)"
 
 popd
