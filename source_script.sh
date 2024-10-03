@@ -11,7 +11,7 @@ fi
 nowts=$(date +%s)
 temp_file=$(mktemp "script_temp.${nowts}.sh")
 
-echo "Downloading script from $script_url"
+echo "Downloading script from $script_url to $temp_file..."
 curl -s -o "$temp_file" "$script_url"
 echo "Sourcing script..."
 source "$temp_file"
