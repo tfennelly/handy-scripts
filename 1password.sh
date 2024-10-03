@@ -9,6 +9,8 @@ op --version > /dev/null 2>&1
 if [ $? -ne 0 ]; then
   echo -e "\n${RED}Error: 1password CLI is not installed. Go to https://developer.1password.com/docs/cli and install.${NC}"
   exit 1
+else
+  echo -e "\n${GREEN}1password CLI is installed.${NC}"
 fi
 
 function login1Password() {
