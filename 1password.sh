@@ -24,6 +24,10 @@ function login1Password() {
   echo ''
   
   accountName=$1
+  if [ -z "$accountName" ]; then
+    echo -e "\n${RED}Error: You must provide the 1Password account name.${NC}"
+    exit 1
+  fi
 
   eval $(op signin --account "$accountName")
   if [ $? -ne 0 ]; then
