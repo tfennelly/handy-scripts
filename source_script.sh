@@ -9,6 +9,6 @@ fi
 nowts=$(date +%s)
 temp_file=$(mktemp "script_temp.${nowts}.sh")
 
-curl -o "$temp_file" "$script_url"
+curl -so "$temp_file" "$script_url"
 source "$temp_file"
 rm "$temp_file"
