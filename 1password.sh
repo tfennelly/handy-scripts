@@ -37,3 +37,5 @@ function login1Password() {
 
   echo -e "\n${GREEN}Successfully logged in to 1Password account '$accountName' ${NC}"
 }
+
+echo -e "\n${GREEN}1password.sh script loaded.${NC}"
