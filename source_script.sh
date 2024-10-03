@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "source_script.sh"
+
 script_url=$1
 if [ -z "$script_url" ]; then
   echo "Usage: source_script.sh <URL>"
